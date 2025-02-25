@@ -2,6 +2,7 @@
 
 public class PlayerController : MonoBehaviour
 {
+    public WheelCollider[] wheels;
     public float speed = 20f;         // Tốc độ xe
     public float turnSpeed = 50f;     // Tốc độ quay xe
     public float gravityForce = 10f;  // Lực trọng trường
@@ -11,6 +12,22 @@ public class PlayerController : MonoBehaviour
     private float horizontalInput;
     private bool isBoosting = false;
 
+
+    
+    void FixelUpdate()
+    {
+        foreach (var wheel in wheels)
+        {
+            wheel.motorTorque = Input.GetAxis("Vertical") * speed;
+        }
+        for(int i = 0; i < wheels.Length; i++)
+        {
+            if(i < 2)
+            {
+                wheels[i].steerAngle = Input.GetAxis("Horizontal") * gravityForce;
+            }
+        }
+    }
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -42,5 +59,5 @@ public class PlayerController : MonoBehaviour
 
         // Điều khiển xe rẽ trái/phải
         transform.Rotate(Vector3.up * horizontalInput * turnSpeed * Time.deltaTime);
-    }
+    }    
 }
