@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 public class PlayerController : MonoBehaviour
-{
+{    
     public float speed = 20f;         // Tốc độ xe
     public float turnSpeed = 50f;     // Tốc độ quay xe
     public float gravityForce = 10f;  // Lực trọng trường tùy chỉnh
@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.useGravity = true; // Tắt trọng lực mặc định của Unity
+        
     }
 
     void Update()
