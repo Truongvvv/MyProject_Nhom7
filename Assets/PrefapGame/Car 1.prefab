@@ -198,6 +198,13 @@ MonoBehaviour:
     GateFit: 2
     FocusDistance: 10
     m_SensorSize: {x: 1, y: 1}
+    Iso: 200
+    ShutterSpeed: 0.005
+    Aperture: 16
+    BladeCount: 5
+    Curvature: {x: 2, y: 11}
+    BarrelClipping: 0.25
+    Anamorphism: 0
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -566,6 +573,13 @@ MonoBehaviour:
     GateFit: 2
     FocusDistance: 10
     m_SensorSize: {x: 1, y: 1}
+    Iso: 200
+    ShutterSpeed: 0.005
+    Aperture: 16
+    BladeCount: 5
+    Curvature: {x: 2, y: 11}
+    BarrelClipping: 0.25
+    Anamorphism: 0
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -645,6 +659,13 @@ MonoBehaviour:
     GateFit: 2
     FocusDistance: 10
     m_SensorSize: {x: 1, y: 1}
+    Iso: 200
+    ShutterSpeed: 0.005
+    Aperture: 16
+    BladeCount: 5
+    Curvature: {x: 2, y: 11}
+    BarrelClipping: 0.25
+    Anamorphism: 0
   m_Transitions:
     m_BlendHint: 0
     m_InheritPosition: 0
@@ -728,8 +749,10 @@ PrefabInstance:
       propertyPath: m_IsTrigger
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedComponents:
+    - {fileID: 8053242252274141249, guid: f8b49f9d229541d43b30476c740c2477, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 7488869177904765531, guid: f8b49f9d229541d43b30476c740c2477, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 1536997390485366, guid: f8b49f9d229541d43b30476c740c2477,
@@ -767,8 +790,6 @@ MonoBehaviour:
   turnSpeed: 50
   gravityForce: 5
   boostSpeed: 20
-  boostDuration: 3
-  boostCooldownDuration: 3
 --- !u!54 &801943869719265960
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -808,10 +829,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1ef97a78d0680647bbfbea44dd672fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  normalTurnSpeed: 50
   driftKey: 8
   driftThreshold: 0.1
-  extraTurnMultiplier: 3
-  lateralDriftForce: 10
+  driftTurnMultiplier: 3
+  driftLateralForce: 15
 --- !u!4 &2869579149313741491 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4735839243174642, guid: f8b49f9d229541d43b30476c740c2477,
