@@ -16,24 +16,21 @@ public class Finishline : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("PlayerCar"))
         {
             string carName = other.gameObject.name;
+
+            // Kiểm tra nếu xe chưa có trong danh sách ranking
             if (!ranking.Contains(carName))
             {
-                ranking.Add(carName);
-                leaderboardUI.UpdateLeaderboard(carName); // Cập nhật UI
-            }
-        }
-        if (other.CompareTag("PlayerCar"))
-        {
-            string carName = other.gameObject.name;
-            if (!ranking.Contains(carName))
-            {
-                Time.timeScale = 0f;
-                ranking.Add(carName);
                 leaderboardUI.UpdateLeaderboard(carName);
-                leaderboardUI.ShowLeaderboard();// Cập nhật UI
+
+                // Chỉ dừng thời gian và hiển thị bảng xếp hạng nếu là "PlayerCar"
+                if (other.CompareTag("PlayerCar"))
+                {
+                    Time.timeScale = 0f;
+                    leaderboardUI.ShowLeaderboard();
+                }
             }
         }
         //if (other.CompareTag("Player")) // Kiểm tra nếu xe có tag "Player"

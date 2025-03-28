@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class CarScritp : MonoBehaviour
+public class CarScript : MonoBehaviour
 {
     [Header("Cấu hình Chuyển hướng")]
     public float normalTurnSpeed = 50f; // Tốc độ quay khi không drift
@@ -15,6 +15,9 @@ public class CarScritp : MonoBehaviour
     public TrailRenderer leftTrail;
     public TrailRenderer rightTrail;
 
+    [Header("Âm thanh Drift")]
+    public AudioSource driftAudio; // Audio Source phát âm thanh drift
+
     private Rigidbody rb;
     private float horizontalInput;
     private bool isDrifting = false;
@@ -23,32 +26,46 @@ public class CarScritp : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
-        // Đảm bảo hiệu ứng trail bị tắt ban đầu
+        // Tắt hiệu ứng vệt bánh xe ban đầu
         if (leftTrail != null) leftTrail.emitting = false;
         if (rightTrail != null) rightTrail.emitting = false;
+
+        // Đảm bảo âm thanh ban đầu tắt
+        if (driftAudio != null)
+        {
+            driftAudio.loop = true; // Lặp liên tục khi drift
+            driftAudio.Stop();
+        }
     }
 
     void Update()
     {
         horizontalInput = Input.GetAxis("Horizontal");
 
-        // Kiểm tra nếu drift được kích hoạt
-        if (Input.GetKey(driftKey) && Mathf.Abs(horizontalInput) > driftThreshold)
+        bool driftCondition = Input.GetKey(driftKey) && Mathf.Abs(horizontalInput) > driftThreshold;
+
+        if (driftCondition && !isDrifting)
         {
-            if (!isDrifting)
+            isDrifting = true;
+            if (leftTrail != null) leftTrail.emitting = true;
+            if (rightTrail != null) rightTrail.emitting = true;
+
+            // Bật âm thanh drift
+            if (driftAudio != null && !driftAudio.isPlaying)
             {
-                isDrifting = true;
-                if (leftTrail != null) leftTrail.emitting = true;
-                if (rightTrail != null) rightTrail.emitting = true;
+                driftAudio.Play();
             }
         }
-        else
+        else if (!driftCondition && isDrifting)
         {
-            if (isDrifting)
+            isDrifting = false;
+            if (leftTrail != null) leftTrail.emitting = false;
+            if (rightTrail != null) rightTrail.emitting = false;
+
+            // Tắt âm thanh drift
+            if (driftAudio != null && driftAudio.isPlaying)
             {
-                isDrifting = false;
-                if (leftTrail != null) leftTrail.emitting = false;
-                if (rightTrail != null) rightTrail.emitting = false;
+                driftAudio.Stop();
             }
         }
     }
